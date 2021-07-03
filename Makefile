@@ -10,7 +10,7 @@ SO = c_lib/cam.so
 #LDFLAGS += -fPIC -shared -L/usr/local/lib -ljpeg -lopencv_core -lopencv_imgcodecs
 
 #Mac
-LDFLAGS += -fPIC -bundle -flat_namespace -undefined suppress -L/usr/local/lib -ljpeg -lopencv_core -lopencv_imgcodecs
+LDFLAGS += -fPIC -bundle -flat_namespace -undefined suppress -L/usr/local/lib -ljpeg -lopencv_core -lopencv_imgcodecs -lopencv_videoio
 
 C_OBJ_DIR=_build/c_obj
 $(shell mkdir -p $(C_OBJ_DIR))

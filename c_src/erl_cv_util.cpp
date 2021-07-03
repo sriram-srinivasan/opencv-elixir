@@ -1,3 +1,4 @@
+#include <opencv2/opencv.hpp>
 #include "erl_nif.h"
 #include "erl_cv_util.hpp"
 #include <iostream>

@@ -1,6 +1,5 @@
 #ifndef ERL_CV_UTIL_H
 #define ERL_CV_UTIL_H
-#include <opencv2/opencv.hpp>
 
 #include "erl_nif.h"
 #include <cstdint>
@@ -14,8 +13,6 @@
 /*
  *  This is a subset of exla_nif_util.h from the Nx project.
  */
-
-
 
 // Helper for returning `{:error, msg}` from NIF.
 ERL_NIF_TERM error(ErlNifEnv* env, const char* msg);
@@ -108,6 +105,9 @@ ERL_NIF_TERM get(ErlNifEnv* env, ERL_NIF_TERM term, T* &var) {
 template <typename T>
 ERL_NIF_TERM make(ErlNifEnv* env, T &var) {
   void* ptr = enif_alloc_resource(resource_object<T>::type, sizeof(T));
+  if (ptr == NULL) {
+    std::cout << "ptr is null" << std::endl;
+  }
   new(ptr) T(std::move(var));
   ERL_NIF_TERM ret = enif_make_resource(env, ptr);
   enif_release_resource(ptr);
@@ -188,12 +188,5 @@ int get_list(ErlNifEnv* env, ERL_NIF_TERM list, std::vector<T> &var) {
 int get_binary(ErlNifEnv* env, ERL_NIF_TERM term, ErlNifBinary* var);
 
 ERL_NIF_TERM make_map(ErlNifEnv* env, std::map<std::string, int>& map);
-
-
-// OpenCV types
-
-
-
-
 
 #endif

@@ -5,7 +5,7 @@
             "includePath": [
                 "/usr/local/include/opencv4",
                 "/Users/s/.asdf/installs/erlang/23.3.1/usr/include",
-                "/Users/s/gdrive/work/hack/elixir/cam/clib",
+                "/Users/s/gdrive/work/hack/elixir/cam/c_src",
                 "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/"
             ],
             "defines": [],
