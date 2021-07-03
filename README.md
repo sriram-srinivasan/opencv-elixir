@@ -21,3 +21,13 @@ This is a small exploration of binding a couple of OpenCV4's functions to elixir
     Cam.imwrite "foo.jpg", img
 
 
+# Installation
+
+Prerequisites: opencv4. 
+
+     git clone https://github.com/sriram-srinivasan/opencv-elixir
+
+     cd opencv-elixir
+     mix deps.get
+     Adjust Makefile
+     mix compile
