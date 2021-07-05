@@ -98,17 +98,15 @@ nif_read(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]) {
 
 ERL_NIF_TERM
 nif_qr_read(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]) {
-    cv::String ret1;
-    std::string ret2;
+    std::string ret;
     QRCodeDetector qrd;
 
     Mat *img;
     if (!get<cv::Mat>(env, argv[0], img) || img->empty()) {
         return error(env, "Need image object");
     }
-    ret1 = qrd.detectAndDecode(*img);
-    ret2 = ret1;
-    return ok(env, make(env,ret2)); 
+    ret = qrd.detectAndDecode(*img);
+    return ok(env, make(env,ret)); 
 }
 
 static int load(ErlNifEnv* env, void** priv_data, ERL_NIF_TERM load_info) {
