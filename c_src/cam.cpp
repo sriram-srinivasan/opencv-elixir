@@ -2,6 +2,8 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/videoio.hpp>
+#include <opencv2/objdetect.hpp>
+
 #include "erl_cv_util.hpp"
 #include <erl_nif.h>
 using namespace cv;
@@ -94,6 +96,21 @@ nif_read(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]) {
     }   
 }
 
+ERL_NIF_TERM
+nif_qr_read(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]) {
+    cv::String ret1;
+    std::string ret2;
+    QRCodeDetector qrd;
+
+    Mat *img;
+    if (!get<cv::Mat>(env, argv[0], img) || img->empty()) {
+        return error(env, "Need image object");
+    }
+    ret1 = qrd.detectAndDecode(*img);
+    ret2 = ret1;
+    return ok(env, make(env,ret2)); 
+}
+
 static int load(ErlNifEnv* env, void** priv_data, ERL_NIF_TERM load_info) {
     const char *mod = "Elixir.Cam";
     if (!open_resource<cv::Mat>(env, mod, "OpenCV_Mat")) {
@@ -111,7 +128,8 @@ ErlNifFunc nif_funcs[] =
     {"imwrite", 2, nif_imwrite, 0},
     {"open",    0, nif_open,    0},
     {"read",    1, nif_read,    0},
-    {"close",   1, nif_close,    0},
+    {"qr_read", 1, nif_qr_read, 0},
+    {"close",   1, nif_close,   0},
 };
 
 ERL_NIF_INIT(Elixir.Cam, nif_funcs, &load, nullptr, nullptr, nullptr);

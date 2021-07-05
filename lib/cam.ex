@@ -51,4 +51,11 @@ defmodule Cam do
     raise "NIF close/1 not implemented"
   end
 
+  @doc """
+     Decodes and detects qr code from image.
+  """
+  def qr_read(_img) do
+    raise "NIF qr_read/1 not implemented"
+  end
+
 end
