@@ -53,6 +53,7 @@ defmodule Cam do
 
   @doc """
      Decodes and detects qr code from image.
+     Usage: qr_read "test.jpg"   or qr_read img_ref
   """
   def qr_read(_img) do
     raise "NIF qr_read/1 not implemented"

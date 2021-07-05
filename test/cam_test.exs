@@ -20,4 +20,8 @@ defmodule CamTest do
     assert {:ok, img} = Cam.imread "test/qr.jpg"
     assert {:ok, 'TechTutorialsX!'} == Cam.qr_read img
   end
+
+  test "detect qr code with path" do
+    assert {:ok, 'TechTutorialsX!'} == Cam.qr_read "test/qr.jpg"
+  end
 end

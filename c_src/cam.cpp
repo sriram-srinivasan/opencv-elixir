@@ -100,12 +100,18 @@ ERL_NIF_TERM
 nif_qr_read(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]) {
     std::string ret;
     QRCodeDetector qrd;
-
-    Mat *img;
-    if (!get<cv::Mat>(env, argv[0], img) || img->empty()) {
-        return error(env, "Need image object");
+    if (enif_is_binary(env, argv[0])) {
+        std::string path;
+        get(env, argv[0], path);
+        cv::Mat img = imread(path, IMREAD_COLOR);
+        ret = qrd.detectAndDecode(img);
+    } else {
+        Mat *img;   
+        if (!get<cv::Mat>(env, argv[0], img) || img->empty()) {
+            return error(env, "Expected qr_read <image ref>|<image file path>");
+        }
+        ret = qrd.detectAndDecode(*img);    
     }
-    ret = qrd.detectAndDecode(*img);
     return ok(env, make(env,ret)); 
 }
 
