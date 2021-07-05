@@ -20,6 +20,12 @@ This is a small exploration of binding a couple of OpenCV4's functions to elixir
     # Write img into path name. 
     Cam.imwrite "foo.jpg", img
 
+    # Read a qr code from an image ref. Returns string
+    Cam.qr_read img
+
+    # Read a qr code from a file.
+    Cam.qr_read "test/qr.jpg"
+
 
 # Installation
 
